@@ -1,7 +1,7 @@
 # Main info
 A few pages to show a job list board with detailed pages for each job from API. <br/>
 No standalone components were used to have compatibility with older versions. <br/>
-Hosted at - https://6367a41c018cc13da553b7a8--super-flan-b07d2f.netlify.app
+Hosted at - https://super-flan-b07d2f.netlify.app/
 
 # Standard Angular info
 
