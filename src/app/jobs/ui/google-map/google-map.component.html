@@ -1,0 +1,7 @@
+<div *ngIf="apiLoaded | async">
+    <div *ngIf="center" class="border-b-2 rounded-2">
+        <google-map [options] = "options" [center]="center" [width]="width" [height]="height">
+            <map-marker [position]="center" [options]="markerOptions"></map-marker>
+        </google-map>
+    </div>
+</div>

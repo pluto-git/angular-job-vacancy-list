@@ -1,0 +1,58 @@
+<ng-container *ngIf="job">
+    <div class="select-none bg-[#eff0f5] lg:bg-white 
+w-full 
+rounded-lg
+custom-shadow
+flex flex-row items-stretch py-4 lg:py-4 gap-4 mb-2">
+        <img [routerLink]="[jobDetailed, job.id]"
+            class="cursor-pointer mt-10 lg:mt-0 ml-4 flex-shrink-0 self-start w-16 h-16 rounded-full"
+            [src]="job.pictures[0]" alt="a job picture" aria-label="Goes to the job post" />
+        <div class="flex-grow">
+            <div class="lg:hidden mb-4 flex flex-row justify-between pr-4">
+                <div class="flex flex-row text-[#384564]">
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                    <mat-icon>star</mat-icon>
+                </div>
+                <div class="whitespace-nowrap card-secondary self-stretch">Posted {{job.updatedAt | dateAgo}} </div>
+            </div>
+            <div class="w-full">
+
+                <div class="flex justify-between">
+
+                    <h2 [routerLink]="[jobDetailed, job.id]"
+                        class="card-primary cursor-pointer hover:underline hover:underline-offset-2"
+                        aria-label="Goes to the job post">
+                        {{job.title}}</h2>
+                </div>
+                <div class="card-secondary flex flex-row justify-between">
+                    <span>Department name • {{job.name}}</span>
+
+                </div>
+                <div class="flex items-center justify-between pb-4 lg:pb-0">
+                    <div class="flex flex-row items-center card-secondary">
+                        <mat-icon>location_on</mat-icon>
+                        <span class="mt-2 whitespace-nowrap">{{job.locationName}}</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- for desktop screens, without another ui component to handle the same logic... -->
+        <div class="hidden lg:flex lg:flex-row lg:items-center lg:text-[#384564] lg:pr-4">
+            <mat-icon>star</mat-icon>
+            <mat-icon>star</mat-icon>
+            <mat-icon>star</mat-icon>
+            <mat-icon>star</mat-icon>
+            <mat-icon>star</mat-icon>
+        </div>
+        <div class="hidden lg:flex lg:flex-col lg:justify-between lg:pr-4">
+            <mat-icon class="self-end pl-1 card-secondary ">bookmark_border</mat-icon>
+            <div class="mt-2 items-stretch justify-self-end">
+                <div class="whitespace-nowrap card-secondary">{{job.updatedAt | dateAgo}}</div>
+            </div>
+        </div>
+    </div>
+</ng-container>

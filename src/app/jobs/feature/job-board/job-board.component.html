@@ -1,0 +1,14 @@
+<div class="h-full mt-[1.825rem] mx-2 lg:container lg:mx-auto">
+    <div *ngIf="jobs">
+        <div *ngFor="let job of jobs | paginate: { itemsPerPage: 10, currentPage: p }; trackBy: trackByFn">
+            <app-job-card [job]="job"></app-job-card>
+        </div>
+
+
+    <div class="text-center mt-[2rem] lg:flex lg:flex-row lg:justify-center">
+        <div class="lg:flex-grow-[0.5]">
+            <pagination-controls (pageChange)="p = $event" previousLabel="" nextLabel=""></pagination-controls>
+        </div>
+    </div>
+    </div>
+</div>

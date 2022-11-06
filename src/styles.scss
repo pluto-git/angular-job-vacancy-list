@@ -1,0 +1,118 @@
+@use '@angular/material' as mat;
+@import '@angular/material/theming'; //to import theming functions
+@include mat.core();
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Proxima Nova;
+  src: url(assets/ProximaNovaFont.otf) format("opentype");
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Proxima Nova', "Helvetica Neue", sans-serif;
+}
+
+// Now going are our custom themes to make some Angular Material components work...
+// like <mat-spinner>
+
+$light-primary: mat.define-palette(mat.$indigo-palette);
+$light-accent: mat.define-palette(mat.$lime-palette, A200, A100, A400);
+$light-warn: mat.define-palette(mat.$red-palette);
+$light-theme: mat.define-light-theme((color: (primary: $light-primary,
+        accent: $light-accent,
+        warn: $light-warn,
+      )));
+
+@include mat.all-component-themes($light-theme);
+
+// paginator optional styles
+.ngx-pagination {
+  background-color: #F9FAFD;
+  border-radius: 0.5rem;
+}
+
+.ngx-pagination li {
+  color: #38415d !important;
+  opacity: 0.6;
+  font-weight: 700;
+}
+
+.ngx-pagination .current {
+  background: #F9FAFD !important;
+  color: #55699E !important;
+  opacity: 1;
+  border-bottom: 0.125rem solid #55699E;
+}
+
+@media screen and (max-width: 991px) {
+
+  .ngx-pagination li:first-child,
+  .ngx-pagination li:last-child {
+    visibility: hidden;
+  }
+
+}
+
+@media screen and (min-width: 992px) {
+
+  .pagination-previous, .pagination-next {
+    position: relative;
+  }
+
+  .pagination-previous::after {
+    content: "";
+    background: #DEE3EF;
+    position: absolute;
+    bottom: 25%;
+    right: 0;
+    height: 50%;
+    width: 0.08125rem;
+  }
+
+  .pagination-next::before {
+    content: "";
+    background: #DEE3EF;
+    position: absolute;
+    bottom: 25%;
+    left: 0;
+    height: 50%;
+    width: 0.08125rem;
+  }
+
+  .ngx-pagination li:first-child {
+    margin-right: 1rem !important;
+  }
+
+  .ngx-pagination li:last-child {
+    margin-left: 1rem !important;
+  }
+
+
+  .ngx-pagination .pagination-previous a::before,
+  .ngx-pagination .pagination-previous.disabled::before {
+    font-family: 'Material Icons' !important;
+    content: 'keyboard_arrow_left' !important; //the main difference
+    vertical-align: middle !important;
+    display: inline !important;
+    font-size: 1.5rem;
+  }
+
+  .ngx-pagination .pagination-next a::after,
+  .ngx-pagination .pagination-next.disabled::after {
+
+    font-family: 'Material Icons' !important;
+    content: 'keyboard_arrow_right' !important; //the main difference
+    vertical-align: middle !important;
+    display: inline !important;
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,236 @@
+<ng-container *ngIf="job">
+
+    <!-- could have divided components surely -->
+    <section class="bg-white px-[0.9375rem] lg:mx-auto container pb-[2.3125rem]">
+        <div class="lg:flex lg:flex-row">
+            <section class="lg:flex-grow">
+                <!--Job Details -->
+                <section class="">
+                    <div class="flex flex-row justify-between">
+                        <h1 class="pt-6 text-[1.75rem] tracking-wide font-bold text-[#3A4562] leading-[2.125rem]">Job
+                            Details
+                        </h1>
+                        <!-- Buttons for desktops -->
+                        <div class="hidden lg:flex lg:flex-row lg:mt-[1.5625rem]">
+                            <div class="flex flex-row text-[#3A4562] relative right-0 self-center">
+                                <mat-icon class="text-[#3A4562]">bookmark_border</mat-icon>
+                                <span class="mx-3 mt-0.5 text-[rgba(56, 65, 93, 0.82)] 
+                        tracking-[-0.03125rem] leading-[1.4375rem]">Save to my list</span>
+                            </div>
+                            <div class="mx-6 flex flex-row text-[#3A4562] self-center">
+                                <mat-icon class="text-[#3A4562]">share</mat-icon>
+                                <span class="mx-3 mt-0.5 text-[rgba(56, 65, 93, 0.82)] 
+                        tracking-[-0.03125rem] leading-[1.4375rem]">Share</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Separator -->
+                    <div class="flex my-3">
+                        <div class="flex-grow border-t-2 border-[#3A4562] opacity-[.13]"></div>
+                    </div>
+                    <!-- Desktop Apply Button -->
+                    <div class="hidden lg:flex lg:flex-row lg:justify-start lg:my-[2.4375rem]">
+                        <button class="bg-[#384564] py-[1.125rem] px-[1.875rem] rounded-[0.5rem]
+            text-white gap-[0.625rem]" type="button">
+                            APPLY NOW
+                        </button>
+                    </div>
+                    <!-- Buttons for mobile  -->
+                    <div class="flex flex-row mt-[1.5625rem] lg:hidden">
+                        <div class="flex flex-row text-[#3A4562] relative right-0">
+                            <mat-icon class="text-[#3A4562]">star_border</mat-icon>
+                            <span class="mx-3 mt-0.5 text-[rgba(56, 65, 93, 0.82)] 
+                tracking-[-0.03125rem] leading-[1.4375rem]">Save to my list</span>
+                        </div>
+                        <div class="mx-6 flex flex-row text-[#3A4562] ">
+                            <mat-icon class="text-[#3A4562]">share</mat-icon>
+                            <span class="mx-3 mt-0.5 text-[rgba(56, 65, 93, 0.82)] 
+                tracking-[-0.03125rem] leading-[1.4375rem]">Share</span>
+                        </div>
+                    </div>
+
+                    <!-- Job Title , salary -->
+                    <section>
+                        <div class="flex flex-row">
+                            <!-- Job title -->
+                            <h2 class="mr-5 mt-8 lg:mt-0 text-[#3A4562] text-[1.5rem] leading-[1.875rem] font-bold tracking-tighter 
+                                lg:max-w-[347px]">
+                                {{job.title}}
+                            </h2>
+                            <!-- desktop salary -->
+                            <div class="hidden lg:flex lg:flex-col lg:flex-grow">
+                                <span class="flex-grow lg:flex-grow-0 text-end
+                    font-bold text-[#3A4562] text-[1.25rem] tracking-[-0.039rem] leading-[1.5625rem]">
+                                    {{"€ "+ job.salary}}
+                                </span>
+                                <span class="flex-grow text-end">Brutto, per year</span>
+                            </div>
+                        </div>
+                        <!-- Salary title -->
+                        <div class="lg:hidden flex flex-rowtext-[1.125rem] leading-[1.5rem]
+                text-[#38415DD1] font-400tracking-[-0.035rem] mt-[0.3125rem]">
+                            <span class="flex-grow text-end">Brutto, per year</span>
+                        </div>
+                        <!-- Date , let's say posted is not createdAt, but updatedAt-->
+                        <span
+                            class="text-[#38415d] text-opacity-[0.6] text-[0.8125rem] lg:text-[1.125rem] font-300 lg:font-400 leading-[1.5625rem] tracking-[0.012rem]">
+                            {{"Posted " + (job.updatedAt | dateAgo)}}
+                        </span>
+                        <!-- Salary -->
+                        <div class="lg:hidden flex flex-row mt-[-1.25rem]">
+                            <span class="flex-grow text-end
+                    font-bold text-[#3A4562] text-[1.25rem] tracking-[-0.039rem] leading-[1.5625rem]">
+                                {{"€ "+ job.salary}}
+                            </span>
+                        </div>
+                    </section>
+
+                    <!-- Description -->
+                    <section class="mt-[1.625rem] lg:mt-0 text-[#38415DD1] text-[1.125rem] font-400 
+        leading-[1.5rem] tracking-[-0.035rem] pr-4">
+                        <p>{{sliceDescription(job.description, desc.summary)}}</p>
+                    </section>
+                    <!-- Responsibilities -->
+                    <section class="mt-[2.6875rem]">
+                        <h3 class="text-[#3A4562] text-[1.25rem] font-bold 
+            tracking-[-0.039rem] leading-[1.5625rem]">{{desc.responsibilities.slice(0,-1)}}</h3>
+                        <p class="text-[#38415DD1] text-[1.125rem] font-400 
+            leading-[1.5rem] tracking-[-0.035rem] pr-4">{{sliceDescription(job.description, desc.responsibilities)}}
+                        </p>
+                    </section>
+                    <!-- Compensation & Benefits: -->
+                    <section class="mt-6">
+                        <h3 class="text-[#3A4562] text-[1.25rem] font-bold pb-6
+            tracking-[-0.039rem] leading-[1.5625rem]">{{desc.compensation}}</h3>
+                        <ul *ngFor="let benefit of (sliceDescription(job.description, desc.compensation)?.split('.'))">
+                            <li *ngIf='benefit.length>5' class="list-style
+                    text-[#38415DD1] text-[1.125rem] font-400 
+                    leading-[1.5rem] tracking-[-0.035rem] pr-4
+                    ">{{benefit}}</li>
+                        </ul>
+                    </section>
+
+                    <!-- Apply now button -->
+                    <div class="flex flex-row justify-center lg:justify-start my-6">
+                        <button class="bg-[#384564] py-[1.125rem] px-[1.875rem] rounded-[0.5rem]
+            text-white gap-[0.625rem]" type="button">
+                            APPLY NOW
+                        </button>
+                    </div>
+                </section>
+
+                <div class="flex flex-col">
+                    <!--Attached Images -->
+                    <section class="mt-[8.4375rem] lg:mt-[5.375rem] order-first lg:order-last">
+                        <h2 class="text-[1.75rem] tracking-wide font-bold text-[#3A4562] leading-[2.125rem]">Attached
+                            images
+                        </h2>
+                        <div class="flex mt-3 mb-[0.6875rem]">
+                            <div class="flex-grow border-t-2 border-[#3A4562] opacity-[.13]"></div>
+                        </div>
+                        <!-- images are ugly on the mobile model at least, and not shown all by the design
+            , so will improvise -->
+                        <div class="grid grid-cols-3 gap-2 lg:flex lg:flex-row gap-2 lg:justify-between">
+                            <img [src]="image" alt="company pic" *ngFor="let image of job.pictures"
+                                class="aspect-square flex-grow object-fit shadow rounded border-none">
+                        </div>
+                    </section>
+
+                    <!-- Additional info -->
+                    <section class="mt-[3.43rem] lg:mt-[5.375rem]">
+                        <h2 class="text-[1.75rem] tracking-wide font-bold text-[#3A4562] leading-[2.125rem]">Additional
+                            Info
+                        </h2>
+                        <div class="flex mt-3 mb-[0.6875rem]">
+                            <div class="flex-grow border-t-2 border-[#3A4562] opacity-[.13]"></div>
+                        </div>
+
+                        <!-- Employment type -->
+                        <section class="mt-[0.9375rem]">
+                            <h3 class="text-[#38415DD1] text-[1.125rem] font-400 
+                leading-[1.5rem] tracking-[-0.035rem]">
+                                Employment type
+                            </h3>
+                            <div class="flex flex-row">
+                                <ng-container *ngFor="let type of job.employment_type">
+                                    <div class="border border-[#000000] border-opacity-[.1] rounded-[0.5rem]
+                            bg-[#a1b1db] bg-opacity-[.3]
+                         py-[1.0625rem] px-[1.75rem] mr-2">
+                                        <span class="text-[#55699E] font-bold tracking-[-0.028rem]">{{type}}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </section>
+                        <!-- Benefits -->
+                        <section class="mt-[1.375rem]">
+                            <h3 class="text-[#38415DD1] text-[1.125rem] font-400 
+                leading-[1.5rem] tracking-[-0.035rem] ">
+                                Benefits
+                            </h3>
+                            <div class="flex flex-row">
+                                <ng-container *ngFor="let benefit of job.benefits">
+                                    <div class="border border-[#FFCF00] rounded-[0.5rem]
+                        bg-[#ffcf00] bg-opacity-[.1]
+                     py-[1.0625rem] px-[0.75rem] mr-[0.375rem]">
+                                        <span class="text-[#988B49] font-bold tracking-[-0.028rem]">{{benefit}}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+            </section>
+            <!-- Contact Info -->
+            <section class="mt-[3.9375rem] lg:mt-0 lg:pt-[3rem] lg:ml-[3.5rem]">
+                <div class="lg:flex lg:hidden">
+                    <h2 class="text-[1.75rem] tracking-wide font-bold text-[#3A4562] leading-[2.125rem]">Contacts</h2>
+                    <div class="flex mt-3 mb-[1.3175rem]">
+                        <div class="flex-grow border-t-2 border-[#3A4562] opacity-[.13]"></div>
+                    </div>
+                </div>
+                <!-- Contacts with the map -->
+                <section class="bg-[#2A3047]  lg:max-w-[27rem] rounded-[0.5rem] ">
+                    <div id="contacts"
+                        class=" text-[#E7EAF0] py-[1.9375rem] px-16 leading-[1.1875rem] tracking-[0.014rem]">
+                        <!-- Department -->
+                        <div class="font-bold ">
+                            <h3>Department Name.</h3>
+                            <span>{{job.name}}</span>
+                        </div>
+                        <!-- Location + address -->
+                        <div class="mt-[1.3rem]">
+
+                            <span class=" font-400 ml-[-0.4rem] tracking-[-0.03125rem]">
+                                <mat-icon class="text-[#E7EAF0] pt-[0.1875rem] relative">location_on</mat-icon>
+                                {{job.locationName}}
+                            </span>
+                            <span>{{job.address}}</span>
+                        </div>
+                        <div class="flex flex-col mt-[0.375rem] 
+                    ml-[-0.25rem] tracking-[-0.03125rem]
+                    text-[#ffffff] text-opacity-[.6]">
+                            <span>{{job.phone + ","}}</span>
+                            <span>{{job.email}}</span>
+                        </div>
+
+                    </div>
+                    <app-google-map [center]="{lat:job.location.lat, lng: job.location.long}" [width]=" map.width"
+                        [height]="map.height"></app-google-map>
+                    <!-- alternatively I could do some screenshots with html2canvas...
+                    to take screenshots and insert as an image -->
+                </section>
+            </section>
+        </div>
+        <!-- Return to Job Board Button , the ugly button -->
+        <div class=" hidden lg:flex lg:mt-4 ">
+            <button class=" text-[0.75rem] font-600 text-center text-[#3A4562] rounded-[0.5rem] bg-[#384564]
+                            bg-opacity-[0.14] flex flex-row items-center" [routerLink]="board">
+                <div class="flex flex-row items-center px-4 py-4">
+                    <mat-icon>keyboard_arrow_left</mat-icon>
+                    <span class=""> RETURN TO JOB BOARD</span>
+                </div>
+            </button>
+        </div>
+    </section>
+
+</ng-container>

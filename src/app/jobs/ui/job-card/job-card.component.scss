@@ -1,0 +1,21 @@
+/* Auto layout */
+.custom-shadow {
+    box-shadow: 2px 1px 7px rgba(0, 0, 0, 0.08), 0px 2px 1px -1px rgba(0, 0, 0, 0.04), 0px 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.card-primary {
+    color: #3A4562;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: -0.625px;
+}
+
+.card-secondary {
+    font-weight: 400;
+    color: #878D9D;
+    letter-spacing: 0.23619px;
+}
+
+mat-icon {
+    margin-left: -5px;
+}
